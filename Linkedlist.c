@@ -168,7 +168,7 @@ void predecessor_ptr_node(struct node *head,int data)
             break;
         temp = temp->link;
     }
-    printf(" \n\rdata : %d predecessor node pinter:%p at position : %d",data,temp->link,pos);
+    printf(" \n\rdata : %d predecessor node pointer:%p at position : %d",data,temp->link,pos);
 }
 void get_ptr_node(struct node *head, int position)
 {
