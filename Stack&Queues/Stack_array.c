@@ -16,7 +16,7 @@ int stack_size();
 
 
 int main() {
-    int data, selection;
+    int data, selection,count;
     Initialize_Stack();
     
     while(1)
@@ -35,24 +35,30 @@ int main() {
 		    
 		switch(selection)
 		{
-		 case 1 : { printf("Enter the element to be pushed : ");
-			        scanf("%d",&data);
-		        	push(data);
+		 case 1 : { printf("Enter the no of data to be pushed : ");
+			        scanf("%d",&count);
+			        for(int i =0;i<count ; i++)
+			        {
+			            printf("Enter data %d :",i+1);
+			            scanf("%d",&data);
+			            push(data);
+			        }
+		        	
 			        break;
 		          }
 		 case 2 : { data = pop();
-		            printf("Popped data from stack : ");
+		            printf("Popped data from stack : %d\n\r",data);
 			        break;
 		          }	
 		 case 3 : { data = peek();
-		            printf("Data at the top is : ");
+		            printf("Data at the top is :%d\n\r",data);
 			        break;
 		          }	
 		 case 4 : { display_stack();
 			        break;
 		          }	
 		 case 5 : { data = stack_size();
-		            printf("Stack Size : %d",data);
+		            printf("Stack Size : %d\n\r",data);
 			        break;
 		          }			          
         }
@@ -107,7 +113,7 @@ int peek()
 {
 	if(Is_Stack_Empty())
 	{
-		printf("Stack Underflow\n");
+		printf("Stack Underflow\n\r");
 		exit(1);
 	}
 	return array[top];
@@ -120,12 +126,12 @@ void display_stack()
 	
 	if(Is_Stack_Empty())
 	{
-		printf("Stack is empty\n");
+		printf("Stack is empty\n\r");
 		return;
 	}
 	else
 	{
-    printf("Stack is : \n\n");
+    printf("Stack is : \n\r");
 	for(i=top; i>=0; i--)
 	    printf(" %d\n", array[i]);
 	printf("\n\r");
