@@ -17,6 +17,9 @@ void print_second_last_node(struct node *head);
 void print_last_node(struct node *head);
 void predecessor_ptr_node(struct node *head,int data);
 void get_ptr_node(struct node *head, int position);
+struct node *insert_before_data( struct node *head, int data, int new_data);
+struct node *insert_position_data( struct node *head, int position, int new_data);
+struct node *insert_after_position_data( struct node *head, int position, int new_data);
 const int n=8;
 int main() {
     struct node *newnode, *temp, *head=NULL;
@@ -35,6 +38,15 @@ int main() {
     print_list(head);
     printf("\n\r New node added in Beginning");
     insert_node_End(head,100);
+    print_list(head);
+    printf("\n\r New node added in after a data");
+    head = insert_before_data(head,0,13);
+    print_list(head);
+    printf("\n\r New node added in position");
+    head = insert_position_data(head,2,10);
+    print_list(head);
+    printf("\n\r New node added after position");
+    head = insert_after_position_data(head,1,10);
     print_list(head);
 }
 struct node *insert_node_Beginning(struct node *head,int data)
@@ -61,7 +73,7 @@ void insert_node_End(struct node *start,int data)
 }
 struct node *Create_list(struct node *head)
 {
-    int data[8] = {12,22,33,44,55,66,77,88};
+    int data[8] = {11,22,33,44,55,66,77,88};
     head = insert_node_Beginning(head,data[0]);
 
     for(int i = 1;i<8; i++)
@@ -168,7 +180,7 @@ void predecessor_ptr_node(struct node *head,int data)
             break;
         temp = temp->link;
     }
-    printf(" \n\rdata : %d predecessor node pointer:%p at position : %d",data,temp->link,pos);
+    printf(" \n\rdata : %d predecessor node pinter:%p at position : %d",data,temp->link,pos);
 }
 void get_ptr_node(struct node *head, int position)
 {
@@ -189,4 +201,126 @@ void get_ptr_node(struct node *head, int position)
         temp = temp->link;
     }
     printf(" \n\rdata : %d node pointer:%p at position : %d",temp->info,temp->link,pos);
+}
+struct node *insert_before_data( struct node *head, int data, int new_data)
+{
+    struct node *temp,*newnode;
+    int pos = 0;
+    
+    temp = head;
+    if(temp == NULL)
+    {
+        printf("List is empty\n");
+    }
+    /*If new data to be inserted before first node*/
+    if(data == temp->info)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        newnode->info = new_data;
+        newnode->link = temp;
+        temp = newnode;
+        return temp;
+    }
+    else
+    {
+        /*Get pointer to predecessor of node containing data*/
+        while(temp->link != NULL)
+        {
+            if(temp->link->info == data)
+            {
+              newnode = (struct node *)malloc(sizeof(struct node)); 
+              newnode->info = new_data;
+              newnode->link = temp->link;
+              temp->link = newnode;
+              return head;
+            }
+            temp = temp->link;
+        }
+        printf("\n\rData not found");
+        return head;
+    }
+    return head;
+     
+}
+
+struct node *insert_position_data( struct node *head, int position, int new_data)
+{
+    //same as Insert BEFORE
+    struct node *temp,*newnode;
+    int pos = 1;
+    
+    temp = head;
+    if(temp == NULL)
+    {
+        printf("List is empty\n");
+    }
+    /*If new data to be inserted before first node*/
+    if(position == pos)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        newnode->info = new_data;
+        newnode->link = temp;
+        temp = newnode;
+        return temp;
+    }
+    else
+    {
+        while(temp != NULL)
+        {
+            if(pos == position-1)
+            {
+              newnode = (struct node *)malloc(sizeof(struct node)); 
+              newnode->info = new_data;
+              newnode->link = temp->link;
+              temp->link = newnode;
+              return head;
+            }
+            pos++;
+            temp = temp->link;
+        }
+        printf("\n\rData not found");
+        return head;
+    }
+    return head;
+}
+struct node *insert_after_position_data( struct node *head, int position, int new_data)
+{
+    //same as Insert BEFORE
+    struct node *temp,*newnode;
+    int pos = 1;
+    
+    temp = head;
+    if(temp == NULL)
+    {
+        printf("List is empty\n");
+    }
+    /*If new data to be inserted before first node*/
+    if(position == pos)
+    {
+        newnode = (struct node *)malloc(sizeof(struct node));
+        newnode->info = new_data;
+        newnode->link = temp;
+        temp = newnode;
+        return temp;
+    }
+    else
+    {
+        while(temp != NULL)
+        {
+            if(pos == position)
+            {
+              newnode = (struct node *)malloc(sizeof(struct node)); 
+              newnode->info = new_data;
+              newnode->link = temp->link;
+              temp->link = newnode;
+              return head;
+            }
+            pos++;
+            temp = temp->link;
+        }
+        printf("\n\rData not found");
+        return head;
+    }
+    return head;
+     
 }
